@@ -38,7 +38,7 @@ def fetch_server_data():
 
 
 widget = wd.Widget()
-layout = widget.medium_layout
+layout = widget.large_layout
 
 server_data = fetch_server_data()
 
