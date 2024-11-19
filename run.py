@@ -2,6 +2,7 @@ import widgets as wd
 import requests
 from bs4 import BeautifulSoup
 from datetime import timedelta
+import time
 
 
 def fetch_server_data():
@@ -35,19 +36,22 @@ def fetch_server_data():
     return server_data
 
 
-widget = wd.Widget()
-layout = widget.large_layout
+while True:
+    widget = wd.Widget()
+    layout = widget.large_layout
 
-for server in fetch_server_data()[:12]:
-    server_text = wd.Text(
-        text=f"{server['Server Name']} - {server['Current Players']}",
-        font=wd.Font("AmericanTypewriter", 20),
-        color=wd.Color.rgb(0, 0, 0)
-    )
-    layout.add_row([server_text])
+    for server in fetch_server_data()[:12]:
+        server_text = wd.Text(
+            text=f"{server['Server Name']} - {server['Current Players']}",
+            font=wd.Font("AmericanTypewriter", 20),
+            color=wd.Color.rgb(0, 0, 0)
+        )
+        layout.add_row([server_text])
 
-layout.set_background_color(wd.Color.rgb(1, 1, 1))
+    layout.set_background_color(wd.Color.rgb(1, 1, 1))
 
-wd.schedule_next_reload(timedelta(seconds=1))
+    # wd.schedule_next_reload(timedelta(seconds=1))
 
-wd.show_widget(widget)
+    wd.show_widget(widget)
+
+    time.sleep(1)
