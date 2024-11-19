@@ -38,7 +38,7 @@ def fetch_server_data():
 widget = wd.Widget()
 layout = widget.large_layout
 
-for server in fetch_server_data():
+for server in fetch_server_data()[:12]:
     server_text = wd.Text(
         text=f"{server['Server Name']} - {server['Current Players']}",
         font=wd.Font("AmericanTypewriter", 20),
