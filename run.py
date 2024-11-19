@@ -30,8 +30,6 @@ def fetch_server_data():
                 'Password': cells[7].text.strip(),
             }
             server_data.append(server_info)
-    else:
-        server_data = []
 
     server_data.sort(key=lambda s: s["Current Players"], reverse=True)
     return server_data
@@ -40,15 +38,14 @@ def fetch_server_data():
 widget = wd.Widget()
 layout = widget.large_layout
 
-server_data = fetch_server_data()
+for server in fetch_server_data():
+    server_text = wd.Text(
+        text=f"{server['Server Name']} - {server['Current Players']}",
+        font=wd.Font("AmericanTypewriter", 20),
+        color=wd.Color.rgb(0, 0, 0)
+    )
+    layout.add_row([server_text])
 
-server_text = wd.Text(
-    text="\n".join(f"{server['Server Name']} - {server['Current Players']}" for server in server_data),
-    font=wd.Font("AmericanTypewriter", 20),
-    color=wd.Color.rgb(0, 0, 0)
-)
-
-layout.add_row([server_text])
 layout.set_background_color(wd.Color.rgb(1, 1, 1))
 
 wd.schedule_next_reload(timedelta(seconds=1))
